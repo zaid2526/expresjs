@@ -21,6 +21,7 @@ exports.postAddProducts=(req,res,next)=>{
     // console.log(req.body);
 }
 
+
 exports.getProducts=(req,res,next)=>{
     // res.send('<h1>hello from express using express routes</h1>');
     // res.sendFile(path.join(__dirname,'../','views','shop.html'))
