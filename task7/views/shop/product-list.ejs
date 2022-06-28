@@ -19,23 +19,34 @@
                                     <img src="<%= product.imageUrl %>" alt="<%= product.title %>">
                                 </div>
                                 <div class="card__content">
-                                    <h2 class="product__price">$
-                                        <%= product.price %>
-                                    </h2>
+                                    <div class="product__price">
+                                        
+                                        <h2>$<%= product.price %></h2>
+                                    </div>
+                                    
                                     <p class="product__description">
                                         <%= product.description %>
                                     </p>
                                 </div>
+                                
                                 <div class="card__actions">
-                                    <form action="/add-to-cart" method="POST">
-                                        <button class="btn">Add to Cart</button>
+                                    
+                                    <a href="/products/<%= product.id %> "  class="btn">Details</a>
+                                    <form action="/cart" method="POST">
+                                        <input type="number" name="size" id="size" min='2' max='6'  step="1">
+                                        <button class="btn" type="submit">Add to Cart</button>
+                                        <input type="hidden"  name="productId" value="<%= product.id %>">
                                     </form>
+                                    <!-- <%- include('../includes/add-to-cart.ejs') , {product: product} %> -->
+                                    <!-- we use include in a for loop so, we pass the product as a 2nd argument -->
                                 </div>
                             </article>
                             <% } %>
+                        %>
                     </div>
                     <% } else { %>
                         <h1>No Products Found!</h1>
                         <% } %>
+                    %>
             </main>
             <%- include('../includes/end.ejs') %>
