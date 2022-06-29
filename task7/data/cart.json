@@ -1,1 +1,1 @@
-{"products":[{"id":"12345","productName":"A Book","size":"3","qty":2},{"id":"12345","productName":"A Book","size":"4","qty":1},{"id":"3546","productName":"dffgfd","size":"2","qty":1}],"totalPrice":91}
+{"products":[{"id":"12345","productName":"A Book","size":"","qty":2}],"totalPrice":110}

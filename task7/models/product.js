@@ -19,6 +19,7 @@ const getProductsFromFile = cb => {
 
 module.exports = class Product {
   constructor(title, imageUrl, description, price) {
+  
     this.title = title;
     this.imageUrl = imageUrl;
     this.description = description;
@@ -30,6 +31,33 @@ module.exports = class Product {
     getProductsFromFile(products => {
       products.push(this);
       fs.writeFile(p, JSON.stringify(products), err => {
+        console.log(err);
+      });
+    });
+  }
+
+  static update(id,prodDetails){
+    getProductsFromFile(products => {
+      const existingProductIndex= products.findIndex(
+        prod=>prod.id==id );
+      console.log("existingProductIndex",existingProductIndex);
+      const updatedProduct=[...products]
+      updatedProduct[existingProductIndex]=prodDetails;
+      fs.writeFile(p, JSON.stringify(updatedProduct), err => {
+        console.log(err);
+      });
+    });
+  }
+
+  static delete(id){
+    getProductsFromFile(products => {
+      const existingProductIndex= products.findIndex(
+        prod=>prod.id==id );
+      console.log("existingProductIndex",existingProductIndex);
+      const updatedProduct=[...products]
+      updatedProduct.splice(existingProductIndex,1);
+      // updatedProduct[existingProductIndex]=prodDetails;
+      fs.writeFile(p, JSON.stringify(updatedProduct), err => {
         console.log(err);
       });
     });

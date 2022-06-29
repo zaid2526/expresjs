@@ -26,14 +26,17 @@ module.exports = class Cart{
             console.log("existingProduct",existingProduct);
             let updatedProduct;
             if(existingProduct){
-                updatedProduct={ ...existingProduct, }
+                updatedProduct={ ...existingProduct }
                 updatedProduct.qty=updatedProduct.qty+1;
                 updatedProduct.size=updatedProduct.size=productSize;
                 cart.products=[ ...cart.products];
                 cart.products[existingProductIndex]=updatedProduct;
             }else{
                 updatedProduct= {id:id,productName:productName,size:productSize,qty:1};
-                cart.products=[ ...cart.products,updatedProduct]
+                cart.products=[ updatedProduct]
+                // cart.products=[ ...cart.products,updatedProduct]
+                //executing else condition time cart.products always empty
+                //so we do not need to use spread operator ... 
             }
             cart.totalPrice = cart.totalPrice + +productPrice;
             fs.writeFile(p,JSON.stringify(cart),err=>{
