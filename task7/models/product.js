@@ -1,3 +1,4 @@
+/*
 const fs = require('fs');
 const path = require('path');
 
@@ -27,7 +28,7 @@ module.exports = class Product {
   }
 
   save() {
-    this.id=Math.random().toString();
+    this.id=Math.floor(Math.random() * 1000).toString();
     getProductsFromFile(products => {
       products.push(this);
       fs.writeFile(p, JSON.stringify(products), err => {
@@ -36,15 +37,16 @@ module.exports = class Product {
     });
   }
 
-  static update(id,prodDetails){
+  static update(id, prodDetails) {
     getProductsFromFile(products => {
       const existingProductIndex= products.findIndex(
         prod=>prod.id==id );
-      console.log("existingProductIndex",existingProductIndex);
-      const updatedProduct=[...products]
-      updatedProduct[existingProductIndex]=prodDetails;
+      console.log("existingProductIndex", existingProductIndex);
+      const updatedProduct = [...products]
+      updatedProduct[existingProductIndex] = prodDetails;
+      // console.log("updated....",updatedProduct);
       fs.writeFile(p, JSON.stringify(updatedProduct), err => {
-        console.log(err);
+        console.log('err', err);
       });
     });
   }
@@ -53,7 +55,7 @@ module.exports = class Product {
     getProductsFromFile(products => {
       const existingProductIndex= products.findIndex(
         prod=>prod.id==id );
-      console.log("existingProductIndex",existingProductIndex);
+      // console.log("existingProductIndex",existingProductIndex);
       const updatedProduct=[...products]
       updatedProduct.splice(existingProductIndex,1);
       // updatedProduct[existingProductIndex]=prodDetails;
@@ -69,8 +71,45 @@ module.exports = class Product {
 
   static findById(id,cb) {
     getProductsFromFile(products => {
-      const product =products.find(p=> p.id == id)
+      const product =products.find(p=> p.id === id)
       cb(product);
     });
   }
 };
+
+*/
+const db=require('../util/database');
+
+module.exports = class Product {
+  constructor(title, imageUrl, description, price) {
+  
+    this.title = title;
+    this.imageUrl = imageUrl;
+    this.description = description;
+    this.price = price;
+  }
+
+  save() {
+    
+  }
+
+  static update() {
+    
+  }
+
+  static delete(id){
+    db.execute(`DELETE FROM products WHERE id=${id}`)
+      .then(result=>console.log('data delete',result))
+      .catch(err=>console.log(err))
+    
+  }
+
+  static fetchAll() {
+    return db.execute('SELECT * FROM products');
+    
+  }
+
+  static findById(id) {
+  
+  }
+}
