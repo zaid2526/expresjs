@@ -1,4 +1,4 @@
-/*
+
 const fs = require('fs');
 const path = require('path');
 
@@ -77,39 +77,41 @@ module.exports = class Product {
   }
 };
 
-*/
-const db=require('../util/database');
 
-module.exports = class Product {
-  constructor(title, imageUrl, description, price) {
+// const db=require('../util/database');
+
+// module.exports = class Product {
+//   constructor(title, imageUrl, description, price) {
   
-    this.title = title;
-    this.imageUrl = imageUrl;
-    this.description = description;
-    this.price = price;
-  }
+//     this.title = title;
+//     this.imageUrl = imageUrl;
+//     this.description = description;
+//     this.price = price;
+//   }
 
-  save() {
+//   save() {
+//     return db.execute(
+//       'INSERT INTO products (title, price, imageUrl,description) values(?,?,?,?)',
+//       [this.title,this.price, this.imageUrl,this.description]
+//     )
     
-  }
+//   }
 
-  static update() {
+//   static update() {
     
-  }
+//   }
 
-  static delete(id){
-    db.execute(`DELETE FROM products WHERE id=${id}`)
-      .then(result=>console.log('data delete',result))
-      .catch(err=>console.log(err))
+//   static delete(id){
+//     return db.execute(`DELETE FROM products WHERE id=${id}`)  
+//   }
+
+//   static fetchAll() {
+//     return db.execute('SELECT * FROM products');
     
-  }
+//   }
 
-  static fetchAll() {
-    return db.execute('SELECT * FROM products');
-    
-  }
-
-  static findById(id) {
+//   static findById(id) {
+//     return db.execute(`SELECT * FROM products WHERE id=${id}`)
   
-  }
-}
+//   }
+// }
