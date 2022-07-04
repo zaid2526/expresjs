@@ -1,4 +1,4 @@
-
+/*
 const fs = require('fs');
 const path = require('path');
 
@@ -76,7 +76,7 @@ module.exports = class Product {
     });
   }
 };
-
+*/
 
 // const db=require('../util/database');
 
@@ -97,12 +97,17 @@ module.exports = class Product {
     
 //   }
 
-//   static update() {
+//   static update(id,productdetails) {
+//     // return db.execute('UPDATE products SET title = ?, price = ?, description=?, imageUrl=? WHERE id = ?',
+//     //   [productdetails.id,productdetails.price,productdetails.description,productdetails.imageUrl],
+//     //   [id]
+
+//     // )
     
 //   }
 
 //   static delete(id){
-//     return db.execute(`DELETE FROM products WHERE id=${id}`)  
+//     return db.execute(`DELETE FROM products WHERE id=?`,[id])  
 //   }
 
 //   static fetchAll() {
@@ -111,7 +116,30 @@ module.exports = class Product {
 //   }
 
 //   static findById(id) {
-//     return db.execute(`SELECT * FROM products WHERE id=${id}`)
+//     return db.execute(`SELECT * FROM products WHERE id=?`,[id])
   
 //   }
 // }
+
+/* --with sequelize...... */
+const Sequelize = require('sequelize');
+
+const sequelize = require('../util/database');
+
+const Product = sequelize.define('product', {
+  id: {
+    type: Sequelize.INTEGER,
+    autoIncrement: true,
+    allowNull: false,
+    primaryKey: true
+  },
+  title: Sequelize.STRING,
+  price: {
+    type: Sequelize.INTEGER,
+    allowNull: false
+  },
+  imageUrl: Sequelize.STRING,
+  description: Sequelize.STRING
+});
+
+module.exports = Product;
