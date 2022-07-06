@@ -1,4 +1,31 @@
-const { json } = require('body-parser');
+
+/*-- with sequelize------ */
+
+const Sequelize=require('sequelize');
+
+const sequelize=require('../util/database');
+
+const Cart= sequelize.define('cart',{
+    id:{
+        type:Sequelize.INTEGER,
+        autoIncrement: true,
+        allowNull:false,
+        primaryKey:true
+    }
+});
+
+module.exports=Cart
+
+
+
+
+
+
+
+
+
+/* witgh file system
+
 const fs = require('fs');
 const path = require('path');
 
@@ -17,13 +44,13 @@ module.exports = class Cart{
             let cart={ products:[], totalPrice:0 }
             if(!err){
                 cart=JSON.parse(fileContent);
-                console.log("cart",cart);
+                // console.log("cart",cart);
             }
             //anylyzethe product that it present or not..
             const existingProductIndex= cart.products.findIndex(
                 prod=>prod.id==id && prod.size==productSize);
             const existingProduct=cart.products[existingProductIndex];
-            console.log("existingProduct",existingProduct);
+            // console.log("existingProduct",existingProduct);
             let updatedProduct;
             if(existingProduct){
                 updatedProduct={ ...existingProduct }
@@ -40,9 +67,13 @@ module.exports = class Cart{
             }
             cart.totalPrice = cart.totalPrice + +productPrice;
             fs.writeFile(p,JSON.stringify(cart),err=>{
-                // console.log('err',err);
+                console.log('err',err);
             });
 
         })
     }
 }
+
+*/   
+
+
