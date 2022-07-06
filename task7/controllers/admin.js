@@ -17,6 +17,7 @@ exports.postAddProduct = (req, res, next) => {
   const imageUrl = req.body.imageUrl;
   const price = req.body.price;
   const description = req.body.description;
+  
 
   
   // const product = new Product(title, imageUrl, description, price);
@@ -30,12 +31,23 @@ exports.postAddProduct = (req, res, next) => {
   //   .catch(err=>console.log(err));
   
   /*----- with sequelize-----------*/
-  Product.create({
-    title: title,
-    imageUrl: imageUrl,
-    price: price,
-    description: description
-  })
+  // Product.create({
+  //   title: title,
+  //   imageUrl: imageUrl,
+  //   price: price,
+  //   description: description,
+  //   userId: req.user.id // it is a manually setting to add the userId into the
+  //       // product Table... 
+  // })
+  // it is an automatic insertion of userId (or userDetails) into the product table 
+  req.user
+    .createProduct({ //qequalize associationmagic method
+      title: title,
+      imageUrl: imageUrl,
+      price: price,
+      description: description
+      //req.user already has the userId...
+    })
     .then(result => {
       // console.log(result);
       console.log('Created Product');
@@ -73,13 +85,18 @@ exports.getEditProduct = (req, res, next) => {
   //   .catch(err=>console.log(err));
 
   /*------ only with sequelize ------*/
-  Product.findAll({where:{id:prodId}})
-  .then((product)=>{
+  // Product.findAll({where:{id:prodId}})
+  req.user
+  .getProducts({where:{id:prodId}}) //it is a sequelize utility method..
+    //getProducts is return an array even a single product's array
+    // it is just like findAll() methode.
+  .then((products)=>{
+    const product=products[0];
     console.log('find to edit ',product);
     res.render('admin/edit-product', {
           pageTitle: 'Edit Product',
           path: '/admin/edit-product',
-          product:product[0]
+          product:product
       });
 
   })
@@ -210,7 +227,9 @@ exports.getProducts = (req, res, next) => {
   //   .catch(err=>console.log(err));
 
   /*----- with sequelize------*/
-  Product.findAll()
+  // Product.findAll()
+  req.user
+  .getProducts()
   .then(products=>{
     // console.log(row);
     res.render('admin/products', {
